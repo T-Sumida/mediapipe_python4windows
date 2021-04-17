@@ -21,11 +21,11 @@ class Holistic(AbstDetector):
             logger.error(e)
         return True
 
-    def show(self, image) -> np.array:
+    def draw(self, image) -> np.array:
 
         # face mesh
         if self.results.face_landmarks:
-            self.__draw_keypoints_connections(image, self.results.face_landmarks.landmark, connections=mp.solutions.face_mesh.FACE_CONNECTIONS)
+            self.__draw_keypoints_connections(image, self.results.face_landmarks.landmark, circle_radius=1, circle_size=1, connections=mp.solutions.face_mesh.FACE_CONNECTIONS)
         
         # pose
         if self.results.pose_landmarks:

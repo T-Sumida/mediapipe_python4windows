@@ -22,7 +22,7 @@ class FaceMesh(AbstDetector):
             logger.error(e)
         return True if self.results.multi_face_landmarks is not None else False
 
-    def show(self, image) -> np.array:
+    def draw(self, image) -> np.array:
         landmark_buf = []
         base_width, base_height = image.shape[1], image.shape[0]
         for face_landmarks in self.results.multi_face_landmarks:

@@ -81,7 +81,7 @@ def main():
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         if detector.detect(image):
-            tmp_image = detector.show(tmp_image)
+            tmp_image = detector.draw(tmp_image)
 
         disp_fps.disp(tmp_image)
         cv2.imshow(model_name, tmp_image)

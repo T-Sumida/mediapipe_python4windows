@@ -18,7 +18,7 @@ class FaceDetector(AbstDetector):
             logger.error(e)
         return True if self.results.detections is not None else False
 
-    def show(self, image) -> np.array:
+    def draw(self, image) -> np.array:
         for detection in self.results.detections:
 
             # face bounding box and id, score

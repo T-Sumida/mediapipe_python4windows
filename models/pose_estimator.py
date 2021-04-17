@@ -21,7 +21,7 @@ class PoseEstimator(AbstDetector):
             logger.error(e)
         return True if self.results.pose_landmarks is not None else False
 
-    def show(self, image) -> np.array:
+    def draw(self, image) -> np.array:
         landmark_buf = []
         base_width, base_height = image.shape[1], image.shape[0]
 

@@ -24,7 +24,7 @@ class Objectron(AbstDetector):
             logger.error(e)
         return True if self.results.detected_objects is not None else False
 
-    def show(self, image) -> np.array:
+    def draw(self, image) -> np.array:
         base_width, base_height = image.shape[1], image.shape[0]
 
         for detected_objects in self.results.detected_objects:

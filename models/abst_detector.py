@@ -10,5 +10,5 @@ class AbstDetector(metaclass=ABCMeta):
         pass
     
     @abstractmethod
-    def show(self, image) -> np.array:
+    def draw(self, image) -> np.array:
         pass

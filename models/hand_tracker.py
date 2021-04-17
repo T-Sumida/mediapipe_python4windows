@@ -22,7 +22,7 @@ class HandTracker(AbstDetector):
             logger.error(e)
         return True if self.results.multi_hand_landmarks is not None else False
 
-    def show(self, image) -> np.array:
+    def draw(self, image) -> np.array:
         base_width, base_height = image.shape[1], image.shape[0]
         for hand_landmarks, handedness in zip(self.results.multi_hand_landmarks, self.results.multi_handedness):
 
