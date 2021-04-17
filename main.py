@@ -32,6 +32,11 @@ def get_args():
     parser_ht.add_argument('--max_num_hands', type=int, default=2, help='hand num')
     parser_ht.add_argument('--min_detection_confidence', type=float, default=0.7, help='-min_detection_confidence')
     parser_ht.add_argument('--min_tracking_confidence', type=float, default=0.5, help='min_tracking_confidence')
+
+    # pose_estimator command parser
+    parser_pe = subparsers.add_parser('PoseEstimator', help='', description='pose estimation')
+    parser_pe.add_argument('--min_detection_confidence', type=float, default=0.7, help='-min_detection_confidence')
+    parser_pe.add_argument('--min_tracking_confidence', type=float, default=0.5, help='min_tracking_confidence')
     
     args = parser.parse_args()
     return args
