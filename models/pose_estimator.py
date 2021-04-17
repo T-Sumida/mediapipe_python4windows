@@ -34,7 +34,7 @@ class PoseEstimator(AbstDetector):
 
         # draw connections
         for con_pair in mp.solutions.pose.POSE_CONNECTIONS:
-            cv2.line(image, landmark_buf[con_pair[0].value], landmark_buf[con_pair[1].value], (255, 0, 0), 2)
+            cv2.line(image, landmark_buf[con_pair[0].value],
+                     landmark_buf[con_pair[1].value], (255, 0, 0), 2)
 
         return image
-    

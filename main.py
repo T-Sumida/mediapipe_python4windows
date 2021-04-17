@@ -3,53 +3,95 @@ import copy
 import argparse
 
 import cv2
-from loguru import logger
 
 import models
 from utils import DispFps
+
 
 def get_args():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--device", help='device id', type=int, default=0)
     parser.add_argument("--width", help='capture width', type=int, default=960)
-    parser.add_argument("--height", help='capture height', type=int, default=540)
+    parser.add_argument(
+        "--height", help='capture height', type=int, default=540
+    )
 
     subparsers = parser.add_subparsers(dest="model")
 
     # face_detection command parser
-    parser_fd = subparsers.add_parser('FaceDetector', help='', description='face detection')
-    parser_fd.add_argument('--min_detection_confidence', type=float, default=0.7, help='fdsafdsa')
+    parser_fd = subparsers.add_parser(
+        'FaceDetector', help='', description='face detection'
+    )
+    parser_fd.add_argument(
+        '--min_detection_confidence', type=float, default=0.7, help='fdsafdsa'
+    )
 
     # face_mesh command parser
-    parser_fm = subparsers.add_parser('FaceMesh', help='', description='face mesh')
-    parser_fm.add_argument('--max_num_faces', type=int, default=2, help='face num')
-    parser_fm.add_argument('--min_detection_confidence', type=float, default=0.7, help='-min_detection_confidence')
-    parser_fm.add_argument('--min_tracking_confidence', type=float, default=0.5, help='min_tracking_confidence')
+    parser_fm = subparsers.add_parser(
+        'FaceMesh', help='', description='face mesh'
+    )
+    parser_fm.add_argument(
+        '--max_num_faces', type=int, default=2, help='face num'
+    )
+    parser_fm.add_argument(
+        '--min_detection_confidence', type=float, default=0.7,
+        help='-min_detection_confidence'
+    )
+    parser_fm.add_argument(
+        '--min_tracking_confidence', type=float, default=0.5,
+        help='min_tracking_confidence'
+    )
 
     # hand_tracker command parser
-    parser_ht = subparsers.add_parser('HandTracker', help='', description='hand tracking')
-    parser_ht.add_argument('--max_num_hands', type=int, default=2, help='hand num')
-    parser_ht.add_argument('--min_detection_confidence', type=float, default=0.7, help='-min_detection_confidence')
-    parser_ht.add_argument('--min_tracking_confidence', type=float, default=0.5, help='min_tracking_confidence')
+    parser_ht = subparsers.add_parser(
+        'HandTracker', help='', description='hand tracking'
+    )
+    parser_ht.add_argument(
+        '--max_num_hands', type=int, default=2, help='hand num'
+    )
+    parser_ht.add_argument(
+        '--min_detection_confidence', type=float, default=0.7,
+        help='-min_detection_confidence'
+    )
+    parser_ht.add_argument(
+        '--min_tracking_confidence', type=float, default=0.5,
+        help='min_tracking_confidence'
+    )
 
     # pose_estimator command parser
-    parser_pe = subparsers.add_parser('PoseEstimator', help='', description='pose estimation')
-    parser_pe.add_argument('--min_detection_confidence', type=float, default=0.7, help='-min_detection_confidence')
-    parser_pe.add_argument('--min_tracking_confidence', type=float, default=0.5, help='min_tracking_confidence')
+    parser_pe = subparsers.add_parser(
+        'PoseEstimator', help='', description='pose estimation'
+    )
+    parser_pe.add_argument(
+        '--min_detection_confidence', type=float, default=0.7,
+        help='-min_detection_confidence'
+    )
+    parser_pe.add_argument(
+        '--min_tracking_confidence', type=float, default=0.5,
+        help='min_tracking_confidence'
+    )
 
     # objectron command parser
-    parser_ob = subparsers.add_parser('Objectron', help='', description='objectron')
-    parser_ob.add_argument('--max_num_objects', type=int, default=2, help='hand num')
-    parser_ob.add_argument('--min_detection_confidence', type=float, default=0.7, help='-min_detection_confidence')
-    parser_ob.add_argument('--min_tracking_confidence', type=float, default=0.5, help='min_tracking_confidence')
-    parser_ob.add_argument('--model_name', type=str, default='Chair', help='{Shoe, Chair, Cup, Camera}')
+    parser_ob = subparsers.add_parser(
+        'Objectron', help='', description='objectron')
+    parser_ob.add_argument('--max_num_objects', type=int,
+                           default=2, help='hand num')
+    parser_ob.add_argument('--min_detection_confidence',
+                           type=float, default=0.7, help='-min_detection_confidence')
+    parser_ob.add_argument('--min_tracking_confidence',
+                           type=float, default=0.5, help='min_tracking_confidence')
+    parser_ob.add_argument('--model_name', type=str,
+                           default='Chair', help='{Shoe, Chair, Cup, Camera}')
 
     # holistic command parser
-    parser_pe = subparsers.add_parser('Holistic', help='', description='holistic')
-    parser_pe.add_argument('--min_detection_confidence', type=float, default=0.7, help='-min_detection_confidence')
-    parser_pe.add_argument('--min_tracking_confidence', type=float, default=0.5, help='min_tracking_confidence')
-    
+    parser_pe = subparsers.add_parser(
+        'Holistic', help='', description='holistic')
+    parser_pe.add_argument('--min_detection_confidence',
+                           type=float, default=0.7, help='-min_detection_confidence')
+    parser_pe.add_argument('--min_tracking_confidence',
+                           type=float, default=0.5, help='min_tracking_confidence')
+
     args = parser.parse_args()
     return args
 

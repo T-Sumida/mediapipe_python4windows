@@ -1,6 +1,7 @@
 from timeit import default_timer as timer
 import cv2
 
+
 class DispFps():
     def __init__(self):
         # 表示関連定義
@@ -20,7 +21,7 @@ class DispFps():
         self.__curr_fps = 0
         self.__prev_time = timer()
         self.__str = "FPS: "
-    
+
     def __calc(self):
         # フレーム数更新
         self.__frame_count += 1
@@ -38,13 +39,16 @@ class DispFps():
 
     def __disp(self, frame, str, x1, y1, x2, y2):
         cv2.rectangle(frame, (x1, y1), (x2, y2), self.__background_color, -1)
-        cv2.putText(frame, str, (x1 + 5, y2 - 5), self.__font_style, self.__font_size, self.__font_color, self.__font_width)
+        cv2.putText(frame, str, (x1 + 5, y2 - 5), self.__font_style,
+                    self.__font_size, self.__font_color, self.__font_width)
 
     def disp(self, frame):
         # 表示内容計算
         self.__calc()
         # フレーム数（左上に表示する）
-        self.__disp(frame, str(self.__frame_count), 0, 0, x2 = self.__width, y2 = self.__height)
+        self.__disp(frame, str(self.__frame_count), 0,
+                    0, x2=self.__width, y2=self.__height)
         # FPS(右上に表示する)
         screen_width = int(frame.shape[1])
-        self.__disp(frame, self.__str, screen_width - self.__width, 0, screen_width, self.__height)
+        self.__disp(frame, self.__str, screen_width -
+                    self.__width, 0, screen_width, self.__height)

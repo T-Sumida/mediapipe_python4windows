@@ -6,6 +6,7 @@ from loguru import logger
 
 from .abst_detector import AbstDetector
 
+
 class FaceDetector(AbstDetector):
     def __init__(self, min_detection_confidence: float) -> None:
         self.face_detection = mp.solutions.face_detection.FaceDetection(
@@ -29,20 +30,26 @@ class FaceDetector(AbstDetector):
             )
 
             # right eye keypoint
-            image = self.__draw_key_points(image, detection.location_data.relative_keypoints[0])
+            image = self.__draw_key_points(
+                image, detection.location_data.relative_keypoints[0])
             # left eye keypoint
-            image = self.__draw_key_points(image, detection.location_data.relative_keypoints[1])
+            image = self.__draw_key_points(
+                image, detection.location_data.relative_keypoints[1])
             # nose keypoint
-            image = self.__draw_key_points(image, detection.location_data.relative_keypoints[2])
+            image = self.__draw_key_points(
+                image, detection.location_data.relative_keypoints[2])
             # mouth keypoint
-            image = self.__draw_key_points(image, detection.location_data.relative_keypoints[3])
+            image = self.__draw_key_points(
+                image, detection.location_data.relative_keypoints[3])
             # right ear keypoint
-            image = self.__draw_key_points(image, detection.location_data.relative_keypoints[4])
+            image = self.__draw_key_points(
+                image, detection.location_data.relative_keypoints[4])
             # left ear keypoint
-            image = self.__draw_key_points(image, detection.location_data.relative_keypoints[5])
+            image = self.__draw_key_points(
+                image, detection.location_data.relative_keypoints[5])
 
         return image
-    
+
     def __draw_bounding_box_score(self, image, bbox, detect_id, detect_score) -> np.array:
         base_width, base_height = image.shape[1], image.shape[0]
         xmin = int(bbox.xmin * base_width)
@@ -55,12 +62,12 @@ class FaceDetector(AbstDetector):
             (255, 0, 0), 2
         )
         cv2.putText(
-                image,
-                "ID:" + str(detect_id) + ", Score:" + str(round(detect_score, 3)),
-                (xmin, (ymin + height + 20)), cv2.FONT_HERSHEY_SIMPLEX, 0.75,
-                (255, 0, 0), 2, cv2.LINE_AA)
+            image,
+            "ID:" + str(detect_id) + ", Score:" + str(round(detect_score, 3)),
+            (xmin, (ymin + height + 20)), cv2.FONT_HERSHEY_SIMPLEX, 0.75,
+            (255, 0, 0), 2, cv2.LINE_AA)
         return image
-    
+
     def __draw_key_points(self, image, keypoint) -> np.array:
         base_width, base_height = image.shape[1], image.shape[0]
         x = int(keypoint.x * base_width)
