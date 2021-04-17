@@ -44,6 +44,11 @@ def get_args():
     parser_ob.add_argument('--min_detection_confidence', type=float, default=0.7, help='-min_detection_confidence')
     parser_ob.add_argument('--min_tracking_confidence', type=float, default=0.5, help='min_tracking_confidence')
     parser_ob.add_argument('--model_name', type=str, default='Chair', help='{Shoe, Chair, Cup, Camera}')
+
+    # holistic command parser
+    parser_pe = subparsers.add_parser('Holistic', help='', description='holistic')
+    parser_pe.add_argument('--min_detection_confidence', type=float, default=0.7, help='-min_detection_confidence')
+    parser_pe.add_argument('--min_tracking_confidence', type=float, default=0.5, help='min_tracking_confidence')
     
     args = parser.parse_args()
     return args
