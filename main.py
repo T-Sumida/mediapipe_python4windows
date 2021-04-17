@@ -23,10 +23,12 @@ def get_args():
 
     # face_mesh command parser
     parser_fm = subparsers.add_parser('FaceMesh', help='', description='face mesh')
-    parser_fm.add_argument('-mfdaaaae', type=float, default=0.7, help='faaaasa')
+    parser_fm.add_argument('--max_num_faces', type=int, default=2, help='face num')
+    parser_fm.add_argument('--min_detection_confidence', type=float, default=0.7, help='-min_detection_confidence')
+    parser_fm.add_argument('--min_tracking_confidence', type=float, default=0.5, help='min_tracking_confidence')
 
     # hand_tracker command parser
-    parser_ht = subparsers.add_parser('HandTracker', help='', description='face mesh')
+    parser_ht = subparsers.add_parser('HandTracker', help='', description='hand tracking')
     parser_ht.add_argument('--max_num_hands', type=int, default=2, help='hand num')
     parser_ht.add_argument('--min_detection_confidence', type=float, default=0.7, help='-min_detection_confidence')
     parser_ht.add_argument('--min_tracking_confidence', type=float, default=0.5, help='min_tracking_confidence')
