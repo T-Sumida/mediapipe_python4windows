@@ -9,8 +9,7 @@ from .abst_detector import AbstDetector
 
 class FaceDetector(AbstDetector):
     def __init__(self, min_detection_confidence: float) -> None:
-        mp_face_detection = mp.solutions.face_detection
-        self.face_detection = mp_face_detection.FaceDetection(
+        self.face_detection = mp.solutions.face_detection.FaceDetection(
             min_detection_confidence=min_detection_confidence)
 
     def detect(self, image) -> bool:

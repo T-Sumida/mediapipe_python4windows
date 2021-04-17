@@ -10,8 +10,7 @@ from .abst_detector import AbstDetector
 
 class HandTracker(AbstDetector):
     def __init__(self, max_num_hands: int, min_detection_confidence: float, min_tracking_confidence: float) -> None:
-        mp_hands = mp.solutions.hands
-        self.tracker = mp_hands.Hands(
+        self.tracker = mp.solutions.hands.Hands(
             max_num_hands=max_num_hands,
             min_detection_confidence=min_detection_confidence,
             min_tracking_confidence=min_tracking_confidence,
