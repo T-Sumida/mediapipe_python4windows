@@ -9,7 +9,12 @@ import models
 from utils import FpsCalculator
 
 
-def get_args():
+def get_args() -> argparse.Namespace:
+    """引数取得
+
+    Returns:
+        argparse.Namespace: 取得結果
+    """
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--device", help='device id', type=int, default=0)
@@ -25,7 +30,7 @@ def get_args():
         'FaceDetector', help='', description='face detection'
     )
     parser_fd.add_argument(
-        '--min_detection_confidence', type=float, default=0.7, help='fdsafdsa'
+        '--min_detection_confidence', type=float, default=0.7, help='顔検出モデルの最小信頼値 [0.0, 1.0]'
     )
 
     # face_mesh command parser
@@ -33,15 +38,15 @@ def get_args():
         'FaceMesh', help='', description='face mesh'
     )
     parser_fm.add_argument(
-        '--max_num_faces', type=int, default=2, help='face num'
+        '--max_num_faces', type=int, default=2, help='最大検出顔数'
     )
     parser_fm.add_argument(
         '--min_detection_confidence', type=float, default=0.7,
-        help='-min_detection_confidence'
+        help='顔検出モデルの最小信頼値 [0.0, 1.0]'
     )
     parser_fm.add_argument(
         '--min_tracking_confidence', type=float, default=0.5,
-        help='min_tracking_confidence'
+        help='ランドマーク追跡モデルの最小信頼値 [0.0, 1.0]'
     )
 
     # hand_tracker command parser
@@ -49,15 +54,15 @@ def get_args():
         'HandTracker', help='', description='hand tracking'
     )
     parser_ht.add_argument(
-        '--max_num_hands', type=int, default=2, help='hand num'
+        '--max_num_hands', type=int, default=2, help='最大検出手数'
     )
     parser_ht.add_argument(
         '--min_detection_confidence', type=float, default=0.7,
-        help='-min_detection_confidence'
+        help='手検出モデルの最小信頼値 [0.0, 1.0]'
     )
     parser_ht.add_argument(
         '--min_tracking_confidence', type=float, default=0.5,
-        help='min_tracking_confidence'
+        help='ランドマーク追跡モデルの最小信頼値 [0.0, 1.0]'
     )
 
     # pose_estimator command parser
@@ -66,38 +71,47 @@ def get_args():
     )
     parser_pe.add_argument(
         '--min_detection_confidence', type=float, default=0.7,
-        help='-min_detection_confidence'
+        help='姿勢推定モデルの最小信頼値 [0.0, 1.0]'
     )
     parser_pe.add_argument(
         '--min_tracking_confidence', type=float, default=0.5,
-        help='min_tracking_confidence'
+        help='ランドマーク追跡モデルの最小信頼値 [0.0, 1.0]'
     )
 
     # objectron command parser
     parser_ob = subparsers.add_parser(
         'Objectron', help='', description='objectron')
     parser_ob.add_argument('--max_num_objects', type=int,
-                           default=2, help='hand num')
+                           default=5, help='最大検出物体数')
     parser_ob.add_argument('--min_detection_confidence',
-                           type=float, default=0.7, help='-min_detection_confidence')
+                           type=float, default=0.7, help='物体検出モデルの最小信頼値 [0.0, 1.0]')
     parser_ob.add_argument('--min_tracking_confidence',
-                           type=float, default=0.5, help='min_tracking_confidence')
+                           type=float, default=0.5, help='ランドマーク追跡モデルの最小信頼値 [0.0, 1.0]')
     parser_ob.add_argument('--model_name', type=str,
-                           default='Chair', help='{Shoe, Chair, Cup, Camera}')
+                           default='Chair', help='モデル名 {Shoe, Chair, Cup, Camera}')
 
     # holistic command parser
     parser_pe = subparsers.add_parser(
         'Holistic', help='', description='holistic')
     parser_pe.add_argument('--min_detection_confidence',
-                           type=float, default=0.7, help='-min_detection_confidence')
+                           type=float, default=0.7, help='人物検出モデルの最小信頼値')
     parser_pe.add_argument('--min_tracking_confidence',
-                           type=float, default=0.5, help='min_tracking_confidence')
+                           type=float, default=0.5, help='ランドマーク追跡モデルの最小信頼値')
 
     args = parser.parse_args()
     return args
 
 
-def draw_fps(image: np.ndarray, fps: int):
+def draw_fps(image: np.ndarray, fps: int) -> np.ndarray:
+    """fpsを描画する
+
+    Args:
+        image (np.ndarray): ベースイメージ
+        fps (int): FPS
+
+    Returns:
+        np.ndarray: 描画済みイメージ
+    """
     width = image.shape[1]
 
     cv2.rectangle(image, (width-80, 0), (width, 20), (0, 0, 0), -1)
@@ -106,7 +120,8 @@ def draw_fps(image: np.ndarray, fps: int):
     return image
 
 
-def main():
+def main() -> None:
+    """メインループ"""
     args = get_args().__dict__
 
     # setting camera device
