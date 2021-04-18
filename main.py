@@ -27,7 +27,7 @@ def get_args() -> argparse.Namespace:
 
     # face_detection command parser
     parser_fd = subparsers.add_parser(
-        'FaceDetector', help='', description='face detection'
+        'FaceDetector', help='', description='FaceDetector'
     )
     parser_fd.add_argument(
         '--min_detection_confidence', type=float, default=0.7, help='顔検出モデルの最小信頼値 [0.0, 1.0]'
@@ -35,7 +35,7 @@ def get_args() -> argparse.Namespace:
 
     # face_mesh command parser
     parser_fm = subparsers.add_parser(
-        'FaceMesh', help='', description='face mesh'
+        'FaceMesh', help='', description='FaceMesh'
     )
     parser_fm.add_argument(
         '--max_num_faces', type=int, default=2, help='最大検出顔数'
@@ -51,7 +51,7 @@ def get_args() -> argparse.Namespace:
 
     # hand_tracker command parser
     parser_ht = subparsers.add_parser(
-        'HandTracker', help='', description='hand tracking'
+        'HandTracker', help='', description='HandTracker'
     )
     parser_ht.add_argument(
         '--max_num_hands', type=int, default=2, help='最大検出手数'
@@ -67,7 +67,7 @@ def get_args() -> argparse.Namespace:
 
     # pose_estimator command parser
     parser_pe = subparsers.add_parser(
-        'PoseEstimator', help='', description='pose estimation'
+        'PoseEstimator', help='', description='PoseEstimator'
     )
     parser_pe.add_argument(
         '--min_detection_confidence', type=float, default=0.7,
@@ -80,7 +80,7 @@ def get_args() -> argparse.Namespace:
 
     # objectron command parser
     parser_ob = subparsers.add_parser(
-        'Objectron', help='', description='objectron')
+        'Objectron', help='', description='Objectron')
     parser_ob.add_argument('--max_num_objects', type=int,
                            default=5, help='最大検出物体数')
     parser_ob.add_argument('--min_detection_confidence',
@@ -92,7 +92,7 @@ def get_args() -> argparse.Namespace:
 
     # holistic command parser
     parser_pe = subparsers.add_parser(
-        'Holistic', help='', description='holistic')
+        'Holistic', help='', description='Holistic')
     parser_pe.add_argument('--min_detection_confidence',
                            type=float, default=0.7, help='人物検出モデルの最小信頼値 [0.0, 1.0]')
     parser_pe.add_argument('--min_tracking_confidence',
