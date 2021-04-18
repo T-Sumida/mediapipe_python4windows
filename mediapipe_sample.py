@@ -4,6 +4,7 @@ import argparse
 
 import cv2
 import numpy as np
+from loguru import logger
 
 import models
 from utils import FpsCalculator
@@ -131,10 +132,15 @@ def main() -> None:
     del args['device'], args['width'], args['height']
 
     # setting detector
-    model_name = args['model']
-    del args['model']
-    detector = getattr(models, model_name)(**args)
-    cap = cv2.VideoCapture(0)
+    try:
+        model_name = args['model']
+        del args['model']
+        detector = getattr(models, model_name)(**args)
+    except Exception as e:
+        logger.error(e)
+        exit(1)
+
+    # setting fps calculator
     calculator = FpsCalculator()
 
     # main loop
