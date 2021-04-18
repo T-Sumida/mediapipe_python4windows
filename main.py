@@ -3,9 +3,10 @@ import copy
 import argparse
 
 import cv2
+import numpy as np
 
 import models
-from utils import DispFps
+from utils import FpsCalculator
 
 
 def get_args():
@@ -96,6 +97,15 @@ def get_args():
     return args
 
 
+def draw_fps(image: np.ndarray, fps: int):
+    width = image.shape[1]
+
+    cv2.rectangle(image, (width-80, 0), (width, 20), (0, 0, 0), -1)
+    cv2.putText(image, "FPS: " + str(fps), (width-75, 15), cv2.FONT_HERSHEY_SIMPLEX,
+                0.5, (255, 255, 255), 1)
+    return image
+
+
 def main():
     args = get_args().__dict__
 
@@ -110,7 +120,7 @@ def main():
     del args['model']
     detector = getattr(models, model_name)(**args)
     cap = cv2.VideoCapture(0)
-    disp_fps = DispFps()
+    calculator = FpsCalculator()
 
     # main loop
     while cap.isOpened():
@@ -125,7 +135,8 @@ def main():
         if detector.detect(image):
             tmp_image = detector.draw(tmp_image)
 
-        disp_fps.disp(tmp_image)
+        fps = calculator.calc()
+        tmp_image = draw_fps(tmp_image, fps)
         cv2.imshow(model_name, tmp_image)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
