@@ -1,4 +1,15 @@
 # mediapipe_python4windows
+MediaPipeがサポートしているPythonパッケージをWindowsで動かしたサンプルです。
+
+実行時のサブコマンドで以下6種類のモデルを動かすことが可能です。（詳細は[Usage](#Usage)を確認ください）
+
+|  Face Detection  |  Face Mesh  |
+| ---- | ---- | 
+| ![FaceDetection](./pic/face_detect.jpg) |  ![FaceMesh](./pic/face_mesh.jpg)  |
+|  Hands  |  Pose  |
+| ![Hands](./pic/hand.jpg) |  ![Pose](./pic/pose.jpg)  |
+|  Holistic  |  Objectron  |
+| ![Holistic](./pic/holistic.jpg) |  ![Objectron](./pic/objectron.png)  |
 
 # Environment
 - Windows 10 home Insider Preview 10.0.21327 build 221327
@@ -23,9 +34,9 @@
 
 ## Demo
 
-mediapipe_sample.py 実行時のサブコマンドで、Mediapipeがサポートしているモデルを指定して実行することができる。
+mediapipe_sample.py 実行時のサブコマンドで、MediaPipeがサポートしているモデルを指定して実行することができる。
 
-2021/4/18現在、mediapipeがPythonでサポートしているモデルは、
+2021/4/18現在、mediaPipeがPythonでサポートしているモデルは、
 - Face Detection
 - Face Mesh
 - Hands
