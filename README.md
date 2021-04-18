@@ -4,11 +4,11 @@ MediaPipeがサポートしているPythonパッケージをWindowsで動かし�
 実行時のサブコマンドで以下6種類のモデルを動かすことが可能です。（詳細は[Usage](#Usage)を確認ください）
 
 |  Face Detection  |  Face Mesh  |
-| ---- | ---- | 
+| :----: | :----: | 
 | ![FaceDetection](./pic/face_detect.jpg) |  ![FaceMesh](./pic/face_mesh.jpg)  |
-|  Hands  |  Pose  |
+|  **Hands**  |  **Pose**  |
 | ![Hands](./pic/hand.jpg) |  ![Pose](./pic/pose.jpg)  |
-|  Holistic  |  Objectron  |
+|  **Holistic**  |  **Objectron**  |
 | ![Holistic](./pic/holistic.jpg) |  ![Objectron](./pic/objectron.png)  |
 
 # Environment
