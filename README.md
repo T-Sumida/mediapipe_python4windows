@@ -89,6 +89,7 @@ Example
 ```
 (mediapipe) $ python mediapipe_sample.py FaceDetector
 ```
+<img src=./pic/face_detect.jpg width=500>
 
 ### Face Mesh
 顔のメッシュを取得するサンプル
@@ -113,6 +114,7 @@ Example
 ```
 (mediapipe) $ python mediapipe_sample.py FaceMesh
 ```
+<img src=./pic/face_mesh.jpg width=500>
 
 
 ### Hands
@@ -138,6 +140,7 @@ Example
 ```
 (mediapipe) $ python mediapipe_sample.py HandTracker
 ```
+<img src=./pic/hand.jpg width=500>
 
 
 ### Pose
@@ -161,6 +164,7 @@ Example
 ```
 (mediapipe) $ python mediapipe_sample.py PoseEstimator
 ```
+<img src=./pic/pose.jpg width=500>
 
 
 ### Holistic
@@ -184,6 +188,7 @@ Example
 ```
 (mediapipe) $ python mediapipe_sample.py Holistic
 ```
+<img src=./pic/holistic.jpg width=500>
 
 
 ### Objectron
@@ -210,9 +215,9 @@ optional arguments:
 ```
 Example
 ```
-(mediapipe) $ python mediapipe_sample.py Objectron
+(mediapipe) $ python mediapipe_sample.py Objectron --model_name Shoe
 ```
-
+<img src=./pic/objectron.png width=500>
 
 # Author
 T-Sumida
