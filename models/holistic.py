@@ -9,20 +9,41 @@ from .abst_detector import AbstDetector
 
 class Holistic(AbstDetector):
     def __init__(self, min_detection_confidence: float, min_tracking_confidence: float) -> None:
+        """初期化処理
+
+        Args:
+            min_detection_confidence (float): 人物検出モデルの最小信頼値
+            min_tracking_confidence (float): ランドマーク追跡モデルからの最小信頼値
+        """
         self.holistic = mp.solutions.holistic.Holistic(
             min_detection_confidence=min_detection_confidence,
             min_tracking_confidence=min_tracking_confidence
         )
 
-    def detect(self, image) -> bool:
+    def detect(self, image: np.ndarray) -> bool:
+        """人物検出処理
+
+        Args:
+            image (np.ndarray): 入力イメージ
+
+        Returns:
+            bool: 人物が検出できたか
+        """
         try:
             self.results = self.holistic.process(image)
         except Exception as e:
             logger.error(e)
         return True
 
-    def draw(self, image) -> np.array:
+    def draw(self, image: np.ndarray) -> np.ndarray:
+        """処理結果を描画する
 
+        Args:
+            image (np.ndarray): ベースイメージ
+
+        Returns:
+            np.ndarray: 描画済みイメージ
+        """
         # face mesh
         if self.results.face_landmarks:
             self.__draw_keypoints_connections(image, self.results.face_landmarks.landmark,
@@ -45,7 +66,19 @@ class Holistic(AbstDetector):
 
         return image
 
-    def __draw_keypoints_connections(self, image, landmarks, circle_radius=1, circle_size=2, connections=None) -> np.array:
+    def __draw_keypoints_connections(self, image: np.ndarray, landmarks, circle_radius: int = 1, circle_size: int = 2, connections=None) -> np.ndarray:
+        """キーポイントと連結部分を描画する
+
+        Args:
+            image (np.ndarray): ベースイメージ
+            landmarks ([type]):ランドマーク情報
+            circle_radius (int, optional): 描画円の半径サイズ. Defaults to 1.
+            circle_size (int, optional): 描画円の太さ. Defaults to 2.
+            connections ([type], optional): 連結情報. Defaults to None.
+
+        Returns:
+            np.ndarray: 描画済みイメージ
+        """
         landmark_buf = []
         base_width, base_height = image.shape[1], image.shape[0]
 

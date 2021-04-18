@@ -9,17 +9,38 @@ from .abst_detector import AbstDetector
 
 class FaceDetector(AbstDetector):
     def __init__(self, min_detection_confidence: float) -> None:
+        """初期化処理
+
+        Args:
+            min_detection_confidence (float): 顔検出モデルの最小信頼値
+        """
         self.face_detection = mp.solutions.face_detection.FaceDetection(
             min_detection_confidence=min_detection_confidence)
 
-    def detect(self, image) -> bool:
+    def detect(self, image: np.ndarray) -> bool:
+        """顔検出処理
+
+        Args:
+            image (np.ndarray): 入力イメージ
+
+        Returns:
+            bool: 顔が検出できたか
+        """
         try:
             self.results = self.face_detection.process(image)
         except Exception as e:
             logger.error(e)
         return True if self.results.detections is not None else False
 
-    def draw(self, image) -> np.array:
+    def draw(self, image: np.ndarray) -> np.ndarray:
+        """処理結果を描画する
+
+        Args:
+            image (np.ndarray): ベースイメージ
+
+        Returns:
+            np.ndarray: 描画済みイメージ
+        """
         for detection in self.results.detections:
 
             # face bounding box and id, score
@@ -50,7 +71,18 @@ class FaceDetector(AbstDetector):
 
         return image
 
-    def __draw_bounding_box_score(self, image, bbox, detect_id, detect_score) -> np.array:
+    def __draw_bounding_box_score(self, image: np.ndarray, bbox, detect_id: int, detect_score: float) -> np.ndarray:
+        """バウンディングボックスとラベル・スコアを描画する
+
+        Args:
+            image (np.ndarray): ベースイメージ
+            bbox ([type]): バウンディングボックス情報
+            detect_id (int): 検出ID
+            detect_score (float): 信頼値
+
+        Returns:
+            np.ndarray: 描画済みイメージ
+        """
         base_width, base_height = image.shape[1], image.shape[0]
         xmin = int(bbox.xmin * base_width)
         ymin = int(bbox.ymin * base_height)
@@ -68,7 +100,16 @@ class FaceDetector(AbstDetector):
             (255, 0, 0), 2, cv2.LINE_AA)
         return image
 
-    def __draw_key_points(self, image, keypoint) -> np.array:
+    def __draw_key_points(self, image: np.ndarray, keypoint) -> np.ndarray:
+        """キーポイントを描画する
+
+        Args:
+            image (np.ndarray): ベースイメージ
+            keypoint ([type]): 顔のキーポイント情報
+
+        Returns:
+            np.ndarray: 描画済みイメージ
+        """
         base_width, base_height = image.shape[1], image.shape[0]
         x = int(keypoint.x * base_width)
         y = int(keypoint.y * base_height)

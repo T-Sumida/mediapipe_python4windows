@@ -1,8 +1,10 @@
+# -*- coding:utf-8 -*-
 from timeit import default_timer as timer
 
 
 class FpsCalculator():
     def __init__(self) -> None:
+        """Initial"""
 
         self.frame_count = 0
 
@@ -11,7 +13,12 @@ class FpsCalculator():
         self.prev_time = timer()
         self.result_fps = 0
 
-    def calc(self):
+    def calc(self) -> int:
+        """calc fps
+
+        Returns:
+            int: current fps
+        """
         # update frame count
         self.frame_count += 1
 
