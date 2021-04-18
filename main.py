@@ -94,9 +94,9 @@ def get_args() -> argparse.Namespace:
     parser_pe = subparsers.add_parser(
         'Holistic', help='', description='holistic')
     parser_pe.add_argument('--min_detection_confidence',
-                           type=float, default=0.7, help='人物検出モデルの最小信頼値')
+                           type=float, default=0.7, help='人物検出モデルの最小信頼値 [0.0, 1.0]')
     parser_pe.add_argument('--min_tracking_confidence',
-                           type=float, default=0.5, help='ランドマーク追跡モデルの最小信頼値')
+                           type=float, default=0.5, help='ランドマーク追跡モデルの最小信頼値 [0.0, 1.0]')
 
     args = parser.parse_args()
     return args
