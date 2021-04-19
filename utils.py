@@ -26,7 +26,7 @@ class FpsCalculator():
         self.__curr_time = timer()
         self.__exec_time = self.__curr_time - self.prev_time
         self.prev_time = self.__curr_time
-        self.accum_time = self.accum_time + self.__exec_time
+        self.accum_time = int(self.accum_time + self.__exec_time)
         self.curr_fps = self.curr_fps + 1
         if self.accum_time > 1:
             self.accum_time = self.accum_time - 1
