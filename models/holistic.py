@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 import mediapipe as mp
 from loguru import logger
+from google.protobuf.pyext._message import RepeatedCompositeContainer
 
 from .abst_detector import AbstDetector
 
@@ -66,15 +67,15 @@ class Holistic(AbstDetector):
 
         return image
 
-    def __draw_keypoints_connections(self, image: np.ndarray, landmarks, circle_radius: int = 1, circle_size: int = 2, connections=None) -> np.ndarray:
+    def __draw_keypoints_connections(self, image: np.ndarray, landmarks: RepeatedCompositeContainer, circle_radius: int = 1, circle_size: int = 2, connections: frozenset = None) -> np.ndarray:
         """キーポイントと連結部分を描画する
 
         Args:
             image (np.ndarray): ベースイメージ
-            landmarks ([type]):ランドマーク情報
+            landmarks (RepeatedCompositeContainer):ランドマーク情報
             circle_radius (int, optional): 描画円の半径サイズ. Defaults to 1.
             circle_size (int, optional): 描画円の太さ. Defaults to 2.
-            connections ([type], optional): 連結情報. Defaults to None.
+            connections (frozenset, optional): 連結情報. Defaults to None.
 
         Returns:
             np.ndarray: 描画済みイメージ

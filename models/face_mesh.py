@@ -41,7 +41,7 @@ class FaceMesh(AbstDetector):
             logger.error(e)
         return True if self.results.multi_face_landmarks is not None else False
 
-    def draw(self, image: np.ndarray) -> np.array:
+    def draw(self, image: np.ndarray) -> np.ndarray:
         """処理結果を描画する
 
         Args:

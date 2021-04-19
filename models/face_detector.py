@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 import mediapipe as mp
 from loguru import logger
+from mediapipe.framework.formats.location_data_pb2 import _LOCATIONDATA_RELATIVEBOUNDINGBOX, _LOCATIONDATA_RELATIVEKEYPOINT
 
 from .abst_detector import AbstDetector
 
@@ -71,12 +72,12 @@ class FaceDetector(AbstDetector):
 
         return image
 
-    def __draw_bounding_box_score(self, image: np.ndarray, bbox, detect_id: int, detect_score: float) -> np.ndarray:
+    def __draw_bounding_box_score(self, image: np.ndarray, bbox: _LOCATIONDATA_RELATIVEBOUNDINGBOX, detect_id: int, detect_score: float) -> np.ndarray:
         """バウンディングボックスとラベル・スコアを描画する
 
         Args:
             image (np.ndarray): ベースイメージ
-            bbox ([type]): バウンディングボックス情報
+            bbox (_LOCATIONDATA_RELATIVEBOUNDINGBOX): バウンディングボックス情報
             detect_id (int): 検出ID
             detect_score (float): 信頼値
 
@@ -100,12 +101,12 @@ class FaceDetector(AbstDetector):
             (255, 0, 0), 2, cv2.LINE_AA)
         return image
 
-    def __draw_key_points(self, image: np.ndarray, keypoint) -> np.ndarray:
+    def __draw_key_points(self, image: np.ndarray, keypoint: _LOCATIONDATA_RELATIVEKEYPOINT) -> np.ndarray:
         """キーポイントを描画する
 
         Args:
             image (np.ndarray): ベースイメージ
-            keypoint ([type]): 顔のキーポイント情報
+            keypoint (_LOCATIONDATA_RELATIVEKEYPOINT): 顔のキーポイント情報
 
         Returns:
             np.ndarray: 描画済みイメージ
