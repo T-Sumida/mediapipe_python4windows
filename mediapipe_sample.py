@@ -31,7 +31,8 @@ def get_args() -> argparse.Namespace:
         'FaceDetector', help='', description='FaceDetector'
     )
     parser_fd.add_argument(
-        '--min_detection_confidence', type=float, default=0.7, help='顔検出モデルの最小信頼値 [0.0, 1.0]'
+        '--min_detection_confidence', type=float,
+        default=0.7, help='顔検出モデルの最小信頼値 [0.0, 1.0]'
     )
 
     # face_mesh command parser
@@ -85,19 +86,24 @@ def get_args() -> argparse.Namespace:
     parser_ob.add_argument('--max_num_objects', type=int,
                            default=5, help='最大検出物体数')
     parser_ob.add_argument('--min_detection_confidence',
-                           type=float, default=0.7, help='物体検出モデルの最小信頼値 [0.0, 1.0]')
+                           type=float, default=0.7,
+                           help='物体検出モデルの最小信頼値 [0.0, 1.0]')
     parser_ob.add_argument('--min_tracking_confidence',
-                           type=float, default=0.5, help='ランドマーク追跡モデルの最小信頼値 [0.0, 1.0]')
+                           type=float, default=0.5,
+                           help='ランドマーク追跡モデルの最小信頼値 [0.0, 1.0]')
     parser_ob.add_argument('--model_name', type=str,
-                           default='Chair', help='モデル名 {Shoe, Chair, Cup, Camera}')
+                           default='Chair',
+                           help='モデル名 {Shoe, Chair, Cup, Camera}')
 
     # holistic command parser
     parser_pe = subparsers.add_parser(
         'Holistic', help='', description='Holistic')
     parser_pe.add_argument('--min_detection_confidence',
-                           type=float, default=0.7, help='人物検出モデルの最小信頼値 [0.0, 1.0]')
+                           type=float, default=0.7,
+                           help='人物検出モデルの最小信頼値 [0.0, 1.0]')
     parser_pe.add_argument('--min_tracking_confidence',
-                           type=float, default=0.5, help='ランドマーク追跡モデルの最小信頼値 [0.0, 1.0]')
+                           type=float, default=0.5,
+                           help='ランドマーク追跡モデルの最小信頼値 [0.0, 1.0]')
 
     args = parser.parse_args()
     return args
@@ -116,7 +122,8 @@ def draw_fps(image: np.ndarray, fps: int) -> np.ndarray:
     width = image.shape[1]
 
     cv2.rectangle(image, (width-80, 0), (width, 20), (0, 0, 0), -1)
-    cv2.putText(image, "FPS: " + str(fps), (width-75, 15), cv2.FONT_HERSHEY_SIMPLEX,
+    cv2.putText(image, "FPS: " + str(fps),
+                (width-75, 15), cv2.FONT_HERSHEY_SIMPLEX,
                 0.5, (255, 255, 255), 1)
     return image
 
