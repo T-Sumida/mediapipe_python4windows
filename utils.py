@@ -1,36 +1,22 @@
 # -*- coding:utf-8 -*-
-from timeit import default_timer as timer
+from collections import deque
+import cv2
 
 
-class FpsCalculator():
-    def __init__(self) -> None:
-        """Initial"""
+class FpsCalculator(object):
+    def __init__(self, buffer_len=30):
+        self._start_tick = cv2.getTickCount()
+        self._freq = 1000.0 / cv2.getTickFrequency()
+        self._difftimes = deque(maxlen=buffer_len)
 
-        self.frame_count = 0
+    def calc(self):
+        current_tick = cv2.getTickCount()
+        different_time = (current_tick - self._start_tick) * self._freq
+        self._start_tick = current_tick
 
-        self.accum_time = 0
-        self.curr_fps = 0
-        self.prev_time = timer()
-        self.result_fps = 0
+        self._difftimes.append(different_time)
 
-    def calc(self) -> int:
-        """calc fps
+        fps = 1000.0 / (sum(self._difftimes) / len(self._difftimes))
+        fps_rounded = round(fps, 2)
 
-        Returns:
-            int: current fps
-        """
-        # update frame count
-        self.frame_count += 1
-
-        # update fps
-        self.__curr_time = timer()
-        self.__exec_time = self.__curr_time - self.prev_time
-        self.prev_time = self.__curr_time
-        self.accum_time = int(self.accum_time + self.__exec_time)
-        self.curr_fps = self.curr_fps + 1
-        if self.accum_time > 1:
-            self.accum_time = self.accum_time - 1
-            self.result_fps = self.curr_fps
-            self.curr_fps = 0
-
-        return self.result_fps
+        return fps_rounded
