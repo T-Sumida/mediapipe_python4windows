@@ -1,15 +1,17 @@
 # mediapipe_python4windows
 MediaPipeがサポートしているPythonパッケージをWindowsで動かしたサンプルです。
 
-実行時のサブコマンドで以下6種類のモデルを動かすことが可能です。（詳細は[Usage](#Usage)を確認ください）
+実行時のサブコマンドで以下7種類のモデルを動かすことが可能です。（詳細は[Usage](#Usage)を確認ください）
 
 |  Face Detection  |  Face Mesh  |
 | :----: | :----: | 
-| ![FaceDetection](./pic/face_detect.jpg) |  ![FaceMesh](./pic/face_mesh.jpg)  |
+| <img src="./pic/face_detect.jpg" width=512>|  <img src="./pic/face_mesh.jpg" width=512>  |
 |  **Hands**  |  **Pose**  |
-| ![Hands](./pic/hand.jpg) |  ![Pose](./pic/pose.jpg)  |
+| <img src="./pic/hand.jpg" width=512> |  <img src="./pic/pose.jpg" width=512>  |
 |  **Holistic**  |  **Objectron**  |
-| ![Holistic](./pic/holistic.jpg) |  ![Objectron](./pic/objectron.png)  |
+| <img src="./pic/holistic.jpg" width=512> | <img src="./pic/objectron.png" width=512>  |
+|  **SelfieSegmentation**  |    |
+| <img src="./pic/segmentation.png" width=512> |   |
 
 # Environment
 - Windows 10 home Insider Preview 10.0.21327 build 221327
@@ -18,7 +20,7 @@ MediaPipeがサポートしているPythonパッケージをWindowsで動かし�
 - Web Camera
 
 # Requirement
-- mediapipe==0.8.3.1
+- mediapipe==0.8.5
 - opencv-python==4.5.1.48
 
 
@@ -29,7 +31,7 @@ MediaPipeがサポートしているPythonパッケージをWindowsで動かし�
 (base) $ conda create -n mediapipe python=3.7
 (base) $ conda activate mediapipe
 (mediapipe) $ conda install requests
-(mediapipe) $ pip install mediapipe, loguru
+(mediapipe) $ pip install mediapipe==0.8.5, loguru
 ```
 
 ## Demo
@@ -43,6 +45,7 @@ mediapipe_sample.py 実行時のサブコマンドで、MediaPipeがサポート
 - Pose
 - Holistic
 - Objectron
+- SelfieSegmentation
 
 （サポートについては、[こちら](https://github.com/google/mediapipe)をご確認ください。）
 
@@ -51,17 +54,18 @@ mediapipe_sample.py 実行時のサブコマンドで、MediaPipeがサポート
 (mediapipe) $ python mediapipe_sample.py -h
 usage: mediapipe_sample.py [-h] [--device DEVICE] [--width WIDTH]
                            [--height HEIGHT]
-                           {FaceDetector,FaceMesh,HandTracker,PoseEstimator,Objectron,Holistic}
+                           {FaceDetector,FaceMesh,HandTracker,PoseEstimator,Objectron,Holistic,SelfieSegmentation}
                            ...
 
 positional arguments:
-  {FaceDetector,FaceMesh,HandTracker,PoseEstimator,Objectron,Holistic}
+  {FaceDetector,FaceMesh,HandTracker,PoseEstimator,Objectron,Holistic,SelfieSegmentation}
     FaceDetector
     FaceMesh
     HandTracker
     PoseEstimator
     Objectron
     Holistic
+    SelfieSegmentation
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -218,6 +222,36 @@ Example
 (mediapipe) $ python mediapipe_sample.py Objectron --model_name Shoe
 ```
 <img src=./pic/objectron.png width=500>
+
+### SelfieSegmentation
+HumanSegmentationのサンプル。
+
+bg_image_pathを指定しない場合はブラーをかける。
+
+```
+(mediapipe) $ python mediapipe_sample.py SelfieSegmentation -h
+python mediapipe_sample.py SelfieSegmentation -h                                
+usage: mediapipe_sample.py SelfieSegmentation [-h]
+                                              [--model_selection MODEL_SELECTION]
+                                              [--bg_image_path BG_IMAGE_PATH]
+
+SelfieSegmentation
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --model_selection MODEL_SELECTION
+                        モデルのタイプ 0(general model) or 1(fast model)
+  --bg_image_path BG_IMAGE_PATH
+                        背景画像のパス
+```
+
+Example
+
+```
+(mediapipe) $ python mediapipe_sample.py SelfieSegmentation --bg_image_path .\pic\bg_image.JPG
+```
+
+<img src="./pic/segmentation.png" width=500>
 
 # Author
 T-Sumida

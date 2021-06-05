@@ -105,6 +105,16 @@ def get_args() -> argparse.Namespace:
                            type=float, default=0.5,
                            help='ランドマーク追跡モデルの最小信頼値 [0.0, 1.0]')
 
+    # SelfieSegmentation command parser
+    parser_pe = subparsers.add_parser(
+        'SelfieSegmentation', help='', description='SelfieSegmentation')
+    parser_pe.add_argument('--model_selection',
+                           type=int, default=0,
+                           help='モデルのタイプ 0(general model) or 1(fast model)')
+    parser_pe.add_argument('--bg_image_path',
+                           type=str, default=None,
+                           help='背景画像のパス')
+
     args = parser.parse_args()
     return args
 
@@ -121,9 +131,9 @@ def draw_fps(image: np.ndarray, fps: int) -> np.ndarray:
     """
     width = image.shape[1]
 
-    cv2.rectangle(image, (width-80, 0), (width, 20), (0, 0, 0), -1)
+    cv2.rectangle(image, (width-105, 0), (width, 20), (0, 0, 0), -1)
     cv2.putText(image, "FPS: " + str(fps),
-                (width-75, 15), cv2.FONT_HERSHEY_SIMPLEX,
+                (width-100, 15), cv2.FONT_HERSHEY_SIMPLEX,
                 0.5, (255, 255, 255), 1)
     return image
 
