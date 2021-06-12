@@ -5,11 +5,21 @@ import cv2
 
 class FpsCalculator(object):
     def __init__(self, buffer_len=30):
+        """Initialize
+
+        Args:
+            buffer_len (int, optional): time buffer size. Defaults to 30.
+        """
         self._start_tick = cv2.getTickCount()
         self._freq = 1000.0 / cv2.getTickFrequency()
         self._difftimes = deque(maxlen=buffer_len)
 
-    def calc(self):
+    def calc(self) -> float:
+        """calc fps
+
+        Returns:
+            float: FPS
+        """
         current_tick = cv2.getTickCount()
         different_time = (current_tick - self._start_tick) * self._freq
         self._start_tick = current_tick
